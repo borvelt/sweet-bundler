@@ -1,12 +1,18 @@
 /* eslint-disable */
 
-function foo({name: x}) {
+function foo({
+  name: x
+}) {
   console.log(x)
 }
 
 // foo({name: 50});
 
-function bar({x, y, z}) {
+function bar({
+  x,
+  y,
+  z
+}) {
   console.log(x, y, z)
 }
 
@@ -14,11 +20,15 @@ function bar({x, y, z}) {
 
 const fibonacci = {
   [Symbol.iterator]: () => {
-    let pre = 0, cur = 1
+    let pre = 0,
+      cur = 1
     return {
       next() {
         [pre, cur] = [cur, pre + cur]
-        return {done: false, value: cur}
+        return {
+          done: false,
+          value: cur
+        }
       },
     }
   },
@@ -32,7 +42,8 @@ const fibonacci = {
 
 const fibonacciGenerator = {
   [Symbol.iterator]: function* () {
-    let pre = 0, cur = 1
+    let pre = 0,
+      cur = 1
     while (true) {
       [pre, cur] = [cur, pre + cur]
       yield cur
@@ -46,7 +57,9 @@ const fibonacciGenerator = {
 //   console.log(g);
 // }
 
-const target = {test: true}
+const target = {
+  test: true
+}
 
 const handler = {
   // target.prop
@@ -68,11 +81,9 @@ const handler = {
     return target
   },
   // target(...args)
-  apply: (target, ...args) => {
-  },
+  apply: (target, ...args) => {},
   // new target(...args)
-  construct: (target, ...args) => {
-  },
+  construct: (target, ...args) => {},
   // Object.getOwnPropertyDescriptor(target, 'prop')
   getOwnPropertyDescriptor: (target, prop) => {
 
@@ -83,11 +94,9 @@ const handler = {
   },
   // Object.getPrototypeOf(target), Reflect.getPrototypeOf(target),
   // target.__proto__, object.isPrototypeOf(target), object instanceof target
-  getPrototypeOf: () => {
-  },
+  getPrototypeOf: () => {},
   // Object.setPrototypeOf(target), Reflect.setPrototypeOf(target)
-  setPrototypeOf: () => {
-  },
+  setPrototypeOf: () => {},
   // for (let i in target) {}
   enumerate: (target) => {
     return [1, 2, 3][Symbol.iterator]()
@@ -127,8 +136,13 @@ async function add1(x) {
 //   console.log(v);
 // });
 
-const obj1 = {test1: 10, test2: 20}
-const obj2 = {test3: 30}
+const obj1 = {
+  test1: 10,
+  test2: 20
+}
+const obj2 = {
+  test3: 30
+}
 obj2.__proto__ = obj1
 
 export const sum = (a, b) => {
