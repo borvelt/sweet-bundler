@@ -4,13 +4,16 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: { index: __dirname + '/../index.js' },
+  entry: { index: __dirname + '/../src/index.js' },
   output: {
-    path: path.resolve(__dirname, '../lib'),
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
     chunkFilename: '[name].sweetBundler.js',
     publicPath: '/',
+    library: 'sweetBundler',
+    libraryTarget: 'umd',
   },
+  externals: [],
   module: {
     rules: [
       {
@@ -28,7 +31,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['lib'], {
+    new CleanWebpackPlugin(['dist'], {
       root: path.join(__dirname, '..'),
     }),
     new UglifyJsPlugin(),

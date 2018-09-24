@@ -6,9 +6,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: { index: __dirname + '/../index.js' },
+  entry: { index: __dirname + '/../src/index.js' },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../web'),
     filename: '[name].js',
     chunkFilename: '[name].[contenthash].js',
     publicPath: '/',
@@ -63,7 +63,7 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
+    new CleanWebpackPlugin(['web'], {
       root: path.join(__dirname, '..'),
     }),
     new HtmlWebpackPlugin({

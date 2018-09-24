@@ -3,7 +3,7 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
-  entry: { index: __dirname + '/../index.js' },
+  entry: { index: __dirname + '/../src/index.js' },
   module: {
     rules: [
       {

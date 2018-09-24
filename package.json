@@ -12,12 +12,14 @@
   },
   "description": "https://github.com/borvelt/sweet-bundler.git",
   "private": true,
+  "main": "dist/index.js",
+  "module": "src/index.js",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js . --cache",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "dev": "npm run lint && webpack-dev-server --open --config webpack.config/dev.js",
-    "build:web": "npm run lint && webpack --config webpack.config/web.js",
-    "build:lib": "npm run lint && webpack --config webpack.config/lib.js",
+    "web": "npm run lint && webpack --config webpack.config/web.js",
+    "dist": "npm run lint && webpack --config webpack.config/dist.js",
     "test": "jest --no-cache"
   },
   "pre-commit": {
