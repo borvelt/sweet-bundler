@@ -1,0 +1,66 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+
+module.exports = {
+  mode: 'development',
+  entry: { index: './index.js' },
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          presets: ['@babel/preset-env'],
+          plugins: [
+            '@babel/plugin-transform-runtime',
+            '@babel/plugin-syntax-dynamic-import',
+          ],
+        },
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+            options: {},
+          },
+          {
+            loader: 'css-loader',
+            options: {},
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+        },
+      },
+    ],
+  },
+  devtool: 'eval',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'sweet-bundler',
+      template: __dirname + '/src/index.html',
+      inject: true,
+    }),
+  ],
+  resolve: {
+    alias: {},
+  },
+  devServer: {
+    stats: {
+      colors: true,
+    },
+    watchOptions: {
+      ignored: /node_modules/,
+    },
+    compress: false,
+    port: 9000,
+    hot: true,
+  },
+}
