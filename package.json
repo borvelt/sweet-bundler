@@ -10,7 +10,7 @@
     "type": "github",
     "url": "https://github.com/borvelt/sweet-bundler.git"
   },
-  "description": "https://github.com/borvelt/sweet-bundler.git",
+  "description": "Make webpack bundler and babel sweety lovey",
   "private": true,
   "main": "dist/index.js",
   "module": "src/index.js",
