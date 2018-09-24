@@ -1,15 +1,16 @@
 const path = require('path')
-// const webpack = require('webpack')
+const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: { index: './index.js' },
+  entry: { index: __dirname + '/../index.js' },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
-    chunkFilename: '[name].sweetBundler.js',
+    chunkFilename: '[name].[contenthash].js',
     publicPath: '/',
   },
   optimization: {
@@ -60,14 +61,21 @@ module.exports = {
       },
     ],
   },
-  // devtool: 'source-map',
+  devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new UglifyJsPlugin({ sourceMap: false }),
-    // new webpack.HashedModuleIdsPlugin(),
-    // new webpack.SourceMapDevToolPlugin({
-    //   filename: '[file].map',
-    // }),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.join(__dirname, '..'),
+    }),
+    new HtmlWebpackPlugin({
+      title: 'sweet-bundler',
+      template: __dirname + '/../src/index.html',
+      inject: true,
+    }),
+    new UglifyJsPlugin({ sourceMap: true }),
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map',
+    }),
   ],
   resolve: {
     alias: {},

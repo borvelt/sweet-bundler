@@ -3,7 +3,7 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
-  entry: { index: './index.js' },
+  entry: { index: __dirname + '/../index.js' },
   module: {
     rules: [
       {
@@ -45,7 +45,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'sweet-bundler',
-      template: __dirname + '/src/index.html',
+      template: __dirname + '/../src/index.html',
       inject: true,
     }),
   ],
