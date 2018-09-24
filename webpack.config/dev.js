@@ -40,7 +40,6 @@ module.exports = {
       },
     ],
   },
-  devtool: 'eval',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
