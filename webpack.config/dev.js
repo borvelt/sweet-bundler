@@ -44,7 +44,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'sweet-bundler',
-      template: __dirname + '/../src/index.html',
+      template: __dirname + '/../src/template.html',
       inject: true,
     }),
   ],

@@ -68,7 +68,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'sweet-bundler',
-      template: __dirname + '/../src/index.html',
+      template: __dirname + '/../src/template.html',
       inject: true,
     }),
     new UglifyJsPlugin({ sourceMap: true }),
