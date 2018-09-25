@@ -2,11 +2,11 @@
   "name": "sweet-bundler",
   "version": "1.0.0",
   "author": {
-    "name": "Mohamad Taheri",
+    "name": "borvelt",
     "email": "borvelt@gmail.com"
   },
   "license": "ISC",
-  "repository": "github",
+  "repository": "https://github.com/borvelt/sweet-bundler.git",
   "description": "work with Webpack bundler",
   "private": true,
   "main": "dist/index.js",
