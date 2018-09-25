@@ -8,9 +8,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
-    chunkFilename: '[name].sweet-bundler.js',
+    chunkFilename: '[name].{%project.libraryName%}.js',
     publicPath: '/',
-    library: 'sweet-bundler',
+    library: '{%project.libraryName%}',
     libraryTarget: 'umd',
   },
   externals: [],

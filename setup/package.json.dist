@@ -1,13 +1,13 @@
 {
-  "name": "sweet-bundler",
+  "name": "{%project.name%}",
   "version": "1.0.0",
   "author": {
-    "name": "Mohamad Taheri",
-    "email": "borvelt@gmail.com"
+    "name": "{%author.name%}",
+    "email": "{%author.email%}"
   },
-  "license": "ISC",
-  "repository": "github",
-  "description": "work with Webpack bundler",
+  "license": "{%project.license%}",
+  "repository": "{%project.repository%}",
+  "description": "{%project.description%}",
   "private": true,
   "main": "dist/index.js",
   "module": "src/index.js",

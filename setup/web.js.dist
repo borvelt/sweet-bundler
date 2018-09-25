@@ -67,7 +67,7 @@ module.exports = {
       root: path.join(__dirname, '..'),
     }),
     new HtmlWebpackPlugin({
-      title: 'Sweet Bundler',
+      title: '{%project.name%}',
       template: __dirname + '/../src/template.html',
       inject: true,
     }),
