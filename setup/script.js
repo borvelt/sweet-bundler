@@ -4,6 +4,7 @@ const {
   __,
   webpackConfigFile,
   toKebabsCase,
+  toCamelCase,
   unlink,
   writeFile,
   readFile,
@@ -102,7 +103,7 @@ _${info.Project.description}_
               .toString()
               .replace(
                 /{%project.libraryName%}/g,
-                toKebabsCase(info.Project.name),
+                toCamelCase(toKebabsCase(info.Project.name)),
               )
             writeFile(webpack.dist, newContent)
               .then(() => __('webpack dist file configured...'))
