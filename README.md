@@ -4,8 +4,14 @@ _Make webpack bundler and babel sweety lovey_
 
 ## Getting Started
 ```bash
-$ git clone https://github.com/borvelt/sweet-bundler.git
+$ git clone https://github.com/borvelt/sweet-bundler.git [project-name]
 ```
+And as always install node modules
+```bash 
+$ cd [project-name]
+$ npm install
+```
+
 After your sweet bundler cloned you can use it.
 
 You can make your project faster with run this command

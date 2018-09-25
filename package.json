@@ -7,7 +7,7 @@
   },
   "license": "ISC",
   "repository": "https://github.com/borvelt/sweet-bundler.git",
-  "description": "work with Webpack bundler",
+  "description": "Make webpack bundler and babel sweety lovey",
   "private": true,
   "main": "dist/index.js",
   "module": "src/index.js",

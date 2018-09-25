@@ -22,14 +22,14 @@ const webpack = {
 }
 const info = {
   Author: {
-    name: 'Mohamad Taheri',
-    email: 'borvelt@gmail.com',
+    name: '',
+    email: '',
   },
   Project: {
-    name: 'Sweet Bundler',
-    description: 'work with Webpack bundler',
-    repository: 'github',
-    license: 'ISC',
+    name: '',
+    description: '',
+    repository: '',
+    license: '',
   },
 }
 const Questions = {
