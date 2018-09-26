@@ -50,7 +50,11 @@ installPackage(['readline-sync'])
   .then(({ readlineSync }) => {
     info.Author.name = readlineSync.question(Questions.Author.name)
     info.Author.email = readlineSync.questionEMail(Questions.Author.email)
-    info.Project.name = readlineSync.question(Questions.Project.name)
+    info.Project.name = readlineSync.question(Questions.Project.name, {
+      limit: /^[a-z0-9\._ \-]+$/,
+      limitMessage:
+        'Sorry, $<lastInput> is not valid project name, It should contain letters and numbers.',
+    })
     info.Project.description = readlineSync.question(
       Questions.Project.description,
     )
