@@ -30,7 +30,6 @@ const info = {
     name: '',
     description: '',
     repository: '',
-    license: '',
   },
 }
 const Questions = {
@@ -42,7 +41,6 @@ const Questions = {
     name: 'Please Input your Project Name: ',
     description: 'And brief description: ',
     repository: 'What is your project repository? ',
-    license: 'Under lisence (ISC): ',
   },
 }
 //==============================================================================
@@ -51,7 +49,7 @@ installPackage(['readline-sync'])
     info.Author.name = readlineSync.question(Questions.Author.name)
     info.Author.email = readlineSync.questionEMail(Questions.Author.email)
     info.Project.name = readlineSync.question(Questions.Project.name, {
-      limit: /^[a-z0-9\._ \-]+$/,
+      limit: /^[a-z0-9._ -]+$/,
       limitMessage:
         'Sorry, $<lastInput> is not valid project name, It should contain letters and numbers.',
     })
@@ -61,9 +59,6 @@ installPackage(['readline-sync'])
     info.Project.repository = readlineSync.question(
       Questions.Project.repository,
     )
-    info.Project.license = readlineSync.question(Questions.Project.license, {
-      defaultInput: 'ISC',
-    })
     //***************************************************************
     __('Start Cleaning Project...')
     Promise.all([
@@ -87,6 +82,18 @@ _${info.Project.description}_
         )
           .then(() => {
             __('Template ReadME file created...')
+          })
+          .catch(error => __(error.toString()))
+
+        const createLicense = readFile(path.join(__dirname, 'LICENSE.dist'))
+          .then(success => {
+            const newContent = success
+              .toString()
+              .replace('{%year%}', new Date().getFullYear())
+              .replace('{%author.email%}', info.Author.email)
+            writeFile(licenseFile, newContent)
+              .then(() => __('LICENSE file configured...'))
+              .catch(error => __(error.toString()))
           })
           .catch(error => __(error.toString()))
 
@@ -133,7 +140,6 @@ _${info.Project.description}_
               .replace('{%project.name%}', toKebabsCase(info.Project.name))
               .replace('{%project.description%}', info.Project.description)
               .replace('{%project.repository%}', info.Project.repository)
-              .replace('{%project.license%}', info.Project.license)
               .replace('{%author.name%}', info.Author.name)
               .replace('{%author.email%}', info.Author.email)
             writeFile(packageJSON, newContent)
@@ -142,6 +148,7 @@ _${info.Project.description}_
           })
           .catch(error => __(error.toString()))
         Promise.all([
+          createLicense,
           createReadMe,
           createWebpackDev,
           createWebpackDist,
@@ -157,7 +164,7 @@ _${info.Project.description}_
               .catch(error => __(error.toString()))
           })
           .catch(error => __(error.toString()))
-        __('Cleaning gir repository...')
+        __('Cleaning git repository...')
         deleteFolderRecursive(path.join(__dirname, '..', '.git'))
       },
       error => __(error),
