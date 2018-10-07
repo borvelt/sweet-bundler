@@ -42,6 +42,7 @@ const Questions = {
     ],
     description: 'And brief description: ',
     repository: 'What is your project repository? ',
+    keywords: 'Set some keywords for your project (separate with ,): ',
   },
 }
 //==============================================================================
@@ -132,11 +133,17 @@ _${info.Project.description}_
           path.join(__dirname, 'package.json.dist'),
         )
           .then(content => {
+            info.Project.keywords = info.Project.keywords
+              .split(',')
+              .filter(k => k.length > 0)
+              .map(k => `"${k}"`)
+              .join(',')
             const newContent = content
               .toString()
               .replace('{%project.name%}', toKebabsCase(info.Project.name))
               .replace('{%project.description%}', info.Project.description)
               .replace('{%project.repository%}', info.Project.repository)
+              .replace('{%project.keywords%}', info.Project.keywords)
               .replace('{%author.name%}', info.Author.name)
               .replace('{%author.email%}', info.Author.email)
             writeFile(packageJSON, newContent)
