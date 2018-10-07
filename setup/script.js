@@ -2,13 +2,13 @@ const path = require('path')
 const installPackage = require('./install-package')
 const {
   __,
-  webpackConfigFile,
   toKebabsCase,
   toCamelCase,
   unlink,
   writeFile,
   readFile,
   renameFile,
+  generateQuestions,
   deleteFolderRecursive,
 } = require('./functions')
 
@@ -17,47 +17,44 @@ const packageJSON = path.join(__dirname, '..', 'package.json')
 const licenseFile = path.join(__dirname, '..', 'LICENSE')
 const readMeFile = path.join(__dirname, '..', 'README.md')
 const webpack = {
-  dev: webpackConfigFile('dev'),
-  dist: webpackConfigFile('dist'),
-  web: webpackConfigFile('web'),
-}
-const info = {
-  Author: {
-    name: '',
-    email: '',
-  },
-  Project: {
-    name: '',
-    description: '',
-    repository: '',
-  },
+  dev: path.join(__dirname, '..', 'webpack.config', 'dev.js'),
+  dist: path.join(__dirname, '..', 'webpack.config', 'dist.js'),
+  web: path.join(__dirname, '..', 'webpack.config', 'web.js'),
 }
 const Questions = {
   Author: {
     name: 'What is your project Author Name? ',
-    email: 'What is your project Author Email address? ',
+    email: [
+      'What is your project Author Email address? ',
+      { func: 'questionEMail' },
+    ],
   },
   Project: {
-    name: 'Please Input your Project Name: ',
+    name: [
+      'Please Input your Project Name: ',
+      {
+        validation: {
+          limit: /^[a-z0-9._-]+$/,
+          limitMessage:
+            'Sorry, $<lastInput> is not valid project name, It should contain letters and numbers.',
+        },
+      },
+    ],
     description: 'And brief description: ',
     repository: 'What is your project repository? ',
   },
 }
 //==============================================================================
-installPackage(['readline-sync'])
-  .then(({ readlineSync }) => {
-    info.Author.name = readlineSync.question(Questions.Author.name)
-    info.Author.email = readlineSync.questionEMail(Questions.Author.email)
-    info.Project.name = readlineSync.question(Questions.Project.name, {
-      limit: /^[a-z0-9._ -]+$/,
-      limitMessage:
-        'Sorry, $<lastInput> is not valid project name, It should contain letters and numbers.',
-    })
-    info.Project.description = readlineSync.question(
-      Questions.Project.description,
-    )
-    info.Project.repository = readlineSync.question(
-      Questions.Project.repository,
+installPackage([
+  'readline-sync',
+  'object-maker',
+  'lodash.flattendeep',
+  'lodash.merge',
+])
+  .then(({ readlineSync, objectMaker, lodashFlattendeep, lodashMerge }) => {
+    let ans = generateQuestions({ readlineSync, objectMaker }, Questions)
+    const info = lodashFlattendeep(ans).reduce((acc, cur) =>
+      lodashMerge(acc, cur),
     )
     //***************************************************************
     __('Start Cleaning Project...')
@@ -171,6 +168,6 @@ _${info.Project.description}_
     )
   })
   .catch(error => {
-    __(error.stderr)
+    __(error)
   })
 //==============================================================================

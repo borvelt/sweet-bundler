@@ -5,10 +5,9 @@
     "name": "{%author.name%}",
     "email": "{%author.email%}"
   },
-  "license": "{%project.license%}",
+  "license": "ISC",
   "repository": "{%project.repository%}",
   "description": "{%project.description%}",
-  "private": true,
   "main": "dist/index.js",
   "module": "src/index.js",
   "scripts": {

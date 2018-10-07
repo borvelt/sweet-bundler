@@ -11,6 +11,7 @@ module.exports = {
     chunkFilename: '[name].{%project.libraryName%}.js',
     publicPath: '/',
     library: '{%project.libraryName%}',
+    globalObject: 'this',
     libraryTarget: 'umd',
   },
   externals: [],

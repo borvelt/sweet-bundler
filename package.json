@@ -30,7 +30,13 @@
       "^.+\\.js$": "babel-jest"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash.flattendeep": "^4.4.0",
+    "lodash.merge": "^4.6.1",
+    "object-maker": "^1.0.1",
+    "readline-sync": "^1.4.9",
+    "validate-npm-package-name": "^3.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",

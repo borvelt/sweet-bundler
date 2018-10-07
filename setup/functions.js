@@ -1,15 +1,17 @@
-const path = require('path')
 const fs = require('fs')
 const { promisify } = require('util')
+
 const writeFile = promisify(fs.writeFile)
+
 const readFile = promisify(fs.readFile)
+
 const renameFile = promisify(fs.rename)
+
 const __ = console.log
 
-const webpackConfigFile = config =>
-  path.join(__dirname, '..', 'webpack.config', `${config}.js`)
+const isNull = x => x === null
 
-const isNull = input => input === null
+const isObject = x => typeof x === typeof null
 
 const toKebabsCase = string =>
   string
@@ -17,11 +19,13 @@ const toKebabsCase = string =>
     .replace(/[\s_.]+/g, '-')
     .toLowerCase()
 
-const isError = input => {
-  if (!isNull(input)) {
-    throw new Error(input)
+const isError = x => {
+  if (!isNull(x)) {
+    throw new Error(x)
   }
 }
+
+const isString = x => typeof x === typeof ''
 
 const unlink = path =>
   new Promise(resolve =>
@@ -36,6 +40,13 @@ const unlink = path =>
       }
     }),
   )
+
+const cleanPackageName = string =>
+  string
+    .replace(/\./g, '-')
+    .replace(/@/g, '-')
+    .replace(/\//g, '-')
+    .replace(/_/g, '-')
 
 const toCamelCase = string => string.replace(/(-\w)/g, m => m[1].toUpperCase())
 
@@ -55,14 +66,43 @@ const deleteFolderRecursive = path => {
   }
 }
 
+const generateQuestions = (libs, questions, path = []) => {
+  if (Array.isArray(questions) || isString(questions)) {
+    let question = questions
+    let exec = libs.readlineSync.question
+    let validation = {}
+    if (Array.isArray(questions)) {
+      question = questions[0]
+      if (isObject(questions[1])) {
+        if (questions[1].func in libs.readlineSync) {
+          exec = libs.readlineSync[questions[1].func]
+        }
+        if (isObject(questions[1].validation)) {
+          validation = questions[1].validation
+        }
+      }
+    }
+    return libs.objectMaker.default(path.join('.'), exec(question, validation))
+  }
+  return Object.keys(questions).map(q => {
+    path.push(q)
+    const ans = generateQuestions(libs, questions[q], path)
+    path.pop()
+    return ans
+  })
+}
+
 exports.__ = __
 exports.isNull = isNull
 exports.toKebabsCase = toKebabsCase
 exports.isError = isError
 exports.unlink = unlink
-exports.webpackConfigFile = webpackConfigFile
 exports.toCamelCase = toCamelCase
 exports.writeFile = writeFile
 exports.readFile = readFile
 exports.renameFile = renameFile
 exports.deleteFolderRecursive = deleteFolderRecursive
+exports.generateQuestions = generateQuestions
+exports.cleanPackageName = cleanPackageName
+exports.isObject = isObject
+exports.isString = isString

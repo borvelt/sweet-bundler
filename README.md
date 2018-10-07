@@ -6,18 +6,18 @@ _Make webpack bundler and babel sweety lovey_
 ```bash
 $ git clone https://github.com/borvelt/sweet-bundler.git [project-name]
 ```
-After your sweet bundler cloned you can use it. As always install node modules
-```bash 
-$ cd [project-name]
-$ npm install
-```
-You can make your project faster with run this command
-
+## Setup
+Run Setup script:
 ```bash
+$ cd [project-name]
 $ node setup/script.js
 ```
 Setup script will ask you some questions about your project and then generate required configurations.
 
+After setup successfully done you can use it and then install node modules
+```bash 
+$ npm install
+```
 Here we have three type of webpack confgurations *dev*, *dist*, *web*
 - dev
 

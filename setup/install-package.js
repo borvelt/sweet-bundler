@@ -1,12 +1,14 @@
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
-const { __, toCamelCase } = require('./functions')
+const { __, toCamelCase, cleanPackageName } = require('./functions')
 
 module.exports = async packagesNames => {
   const packages = {}
   for (let packageName of packagesNames) {
     try {
-      packages[toCamelCase(packageName)] = require(packageName)
+      packages[
+        toCamelCase(cleanPackageName(packageName))
+      ] = require(packageName)
     } catch (e) {
       __('Installing required packages... [take a while please be patient]')
       __(`Installing ${packageName}...`)
