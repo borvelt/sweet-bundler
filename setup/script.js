@@ -136,7 +136,7 @@ _${info.Project.description}_
             info.Project.keywords = info.Project.keywords
               .split(',')
               .filter(k => k.length > 0)
-              .map(k => `"${k}"`)
+              .map(k => `"${k.trim()}"`)
               .join(',')
             const newContent = content
               .toString()
