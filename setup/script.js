@@ -2,7 +2,7 @@ const path = require('path')
 const installPackage = require('./install-package')
 const {
   __,
-  toKebabsCase,
+  cleanPackageName,
   toCamelCase,
   unlink,
   writeFile,
@@ -112,7 +112,7 @@ _${info.Project.description}_
               .toString()
               .replace(
                 /{%project.libraryName%}/g,
-                toCamelCase(toKebabsCase(info.Project.name)),
+                toCamelCase(cleanPackageName(info.Project.name)),
               )
             writeFile(webpack.dist, newContent)
               .then(() => __('webpack dist file configured...'))
@@ -140,7 +140,7 @@ _${info.Project.description}_
               .join(',')
             const newContent = content
               .toString()
-              .replace('{%project.name%}', toKebabsCase(info.Project.name))
+              .replace('{%project.name%}', info.Project.name)
               .replace('{%project.description%}', info.Project.description)
               .replace('{%project.repository%}', info.Project.repository)
               .replace('{%project.keywords%}', info.Project.keywords)

@@ -12,7 +12,7 @@ module.exports = async packagesNames => {
     } catch (e) {
       __('Installing required packages... [take a while please be patient]')
       __(`Installing ${packageName}...`)
-      await exec(`npm install ${packageName}`)
+      await exec(`npm install ${packageName} --no-save`)
       __(`${packageName} installed successfully`)
       packages[toCamelCase(packageName)] = require(packageName)
     }
