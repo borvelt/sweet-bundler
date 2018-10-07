@@ -10,6 +10,7 @@ module.exports = {
     filename: '[name].js',
     chunkFilename: '[name].sweet-bundler.js',
     publicPath: '/',
+    globalObject: 'this',
     library: 'sweet-bundler',
     libraryTarget: 'umd',
   },
