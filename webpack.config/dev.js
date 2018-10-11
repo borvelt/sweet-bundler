@@ -1,13 +1,14 @@
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
-  entry: { index: __dirname + '/../src/index.js' },
+  entry: { index: path.join(__dirname, '..', 'src', 'index.js') },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
@@ -16,6 +17,14 @@ module.exports = {
             '@babel/plugin-transform-runtime',
             '@babel/plugin-syntax-dynamic-import',
           ],
+        },
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          transpileOnly: true,
         },
       },
       {
@@ -44,12 +53,13 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'Sweet Bundler',
-      template: __dirname + '/../src/template.html',
+      template: path.join(__dirname, '..', 'src', 'template.html'),
       inject: true,
     }),
   ],
   resolve: {
     alias: {},
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
   },
   devServer: {
     stats: {

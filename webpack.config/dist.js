@@ -1,24 +1,23 @@
 const path = require('path')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: { index: __dirname + '/../src/index.js' },
+  entry: { index: path.join(__dirname, '..', 'src', 'index.js') },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.join(__dirname, '..', 'dist'),
     filename: '[name].js',
     chunkFilename: '[name].sweet-bundler.js',
     publicPath: '/',
-    globalObject: 'this',
     library: 'sweet-bundler',
+    globalObject: 'this',
     libraryTarget: 'umd',
   },
   externals: [],
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
@@ -29,15 +28,23 @@ module.exports = {
           ],
         },
       },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          transpileOnly: true,
+        },
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
       root: path.join(__dirname, '..'),
     }),
-    new UglifyJsPlugin(),
   ],
   resolve: {
     alias: {},
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
   },
 }

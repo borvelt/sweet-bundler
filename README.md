@@ -33,6 +33,12 @@ Here we have three type of webpack confgurations *dev*, *dist*, *web*
 
 See `scripts` in `package.json` to run commands.
 
+## Typescript
+You can write typescript codes along your javascript codes and then pack and run them. Dont worry about typescript linting, it has been configured.
+
+## Prettier
+Prittier CLI is a tool to prettify all of your codes but it some linters rules (like eslint or tslint) has conflict with prettier rules. I resolved this problem and you can just focus on your codes.
+
 ## Test
 Write your test in `__tests__` subdirectory in src.
 Test cases will check with `jest`

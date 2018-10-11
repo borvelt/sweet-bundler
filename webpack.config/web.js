@@ -1,14 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: { index: __dirname + '/../src/index.js' },
+  entry: { index: path.join(__dirname, '..', 'src', 'index.js') },
   output: {
-    path: path.resolve(__dirname, '../web'),
+    path: path.join(__dirname, '..', 'web'),
     filename: '[name].js',
     chunkFilename: '[name].[contenthash].js',
     publicPath: '/',
@@ -28,7 +27,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
@@ -37,6 +36,14 @@ module.exports = {
             '@babel/plugin-transform-runtime',
             '@babel/plugin-syntax-dynamic-import',
           ],
+        },
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          transpileOnly: true,
         },
       },
       {
@@ -68,10 +75,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'Sweet Bundler',
-      template: __dirname + '/../src/template.html',
+      template: path.join(__dirname, '..', 'src', 'template.html'),
       inject: true,
     }),
-    new UglifyJsPlugin({ sourceMap: true }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.SourceMapDevToolPlugin({
       filename: '[file].map',
@@ -79,5 +85,6 @@ module.exports = {
   ],
   resolve: {
     alias: {},
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
   },
 }
