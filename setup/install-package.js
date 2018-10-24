@@ -5,6 +5,7 @@ const { __, toCamelCase, cleanPackageName } = require('./functions')
 module.exports = async packagesNames => {
   const packages = {}
   for (let packageName of packagesNames) {
+    console.log('packageName', packageName)
     try {
       packages[
         toCamelCase(cleanPackageName(packageName))
@@ -14,7 +15,9 @@ module.exports = async packagesNames => {
       __(`Installing ${packageName}...`)
       await exec(`npm install ${packageName} --no-save`)
       __(`${packageName} installed successfully`)
-      packages[toCamelCase(packageName)] = require(packageName)
+      packages[
+        toCamelCase(cleanPackageName(packageName))
+      ] = require(packageName)
     }
   }
   return packages
