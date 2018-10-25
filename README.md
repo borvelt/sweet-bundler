@@ -1,6 +1,6 @@
 # Sweet Bundler
 
-_Make webpack bundler and babel sweety lovey_
+_Launch your projects faster with webpack and babel integration._
 
 ## Getting Started
 ```bash
@@ -21,7 +21,7 @@ $ npm install
 Here we have three type of webpack confgurations *dev*, *dist*, *web*
 - dev
 
-  webpack configurations for development mode, it have hot module reloading.
+  webpack configurations for development mode, it has hot module reloading.
 
 - web
 
