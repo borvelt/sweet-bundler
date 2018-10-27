@@ -11,15 +11,17 @@
   "main": "dist/index.js",
   "module": "src/index.js",
   "scripts": {
-    "clean": "rm -rf web dist",
+    "clean:dist": "rm -rf dist",
+    "clean:web": "rm -rf web",
+    "clean": "npm run clean:dist && npm run clean:web",
     "prettify:js": "prettier-eslint --write \"**/*.js\"",
     "prettify:ts": "prettier-tslint fix \"**/*.ts\"",
     "prettify:check": "tslint-config-prettier-check ./tslint.json",
     "lint": "npm run prettify:js && npm run prettify:ts",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "dev": "webpack-dev-server --open --config webpack.config/dev.js",
-    "web": "npm run lint && webpack --config webpack.config/web.js",
-    "dist": "npm run lint && webpack --config webpack.config/dist.js",
+    "web": "npm run clean:web && npm run lint && webpack --config webpack.config/web.js",
+    "dist": "npm run clean:dist && npm run lint && webpack --config webpack.config/dist.js",
     "test": "jest --no-cache"
   },
   "pre-commit": {
